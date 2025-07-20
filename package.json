@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "A web application that digitalises the adoption process and ensures more transparency.",
   "main": "server.js",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
