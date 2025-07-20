@@ -1,0 +1,32 @@
+{
+  "name": "adopt-a-need",
+  "version": "1.0.0",
+  "description": "A web application that digitalises the adoption process and ensures more transparency.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Deepak229-hub/Adopt-a-Need.git"
+  },
+  "keywords": [
+    "orphanage",
+    "adoption",
+    "donate",
+    "children",
+    "NGO"
+  ],
+  "author": "Deepak Tiwari",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Deepak229-hub/Adopt-a-Need/issues"
+  },
+  "homepage": "https://github.com/Deepak229-hub/Adopt-a-Need#readme",
+  "dependencies": {
+    "body-parser": "^2.2.0",
+    "ejs": "^3.1.10",
+    "express": "^5.1.0"
+  }
+}
