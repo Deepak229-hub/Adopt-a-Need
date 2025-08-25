@@ -3,22 +3,23 @@ import bodyParser from "body-parser"
 import ejs from "ejs"
 import pg from "pg"
 import bcrypt from "bcrypt"
+import env from "dotenv"
 
 
 const app = express()
 const port = 3000
 const saltRounds = 10
-let isLoggedIn = false
+env.config()
 
 const db = new pg.Client({
-    user: "postgres",
-    host: "localhost",
-    database: "adopt-a-need",
-    password: "45516111",
+    user: process.env.PG_USER,
+    host: process.env.PG_HOST,
+    database: process.env.PG_DATABASE,
+    password: process.env.PG_PASSWORD,
     port: 5432
 })
 
-app.use(bodyParser.urlencoded({extended:true}))
+app.use(bodyParser.urlencoded({ extended: true }))
 app.use(express.static("public"))
 
 db.connect()
@@ -36,51 +37,55 @@ app.get("/register", (req, res) => {
 })
 
 app.post("/register", async (req, res) => {
-    const user = req.body.email
-    const password = req.body.password
     const name = req.body.name
+    const email = req.body.email
+    const phone = req.body.phone
+    let password = null
+    if (req.body.password == req.body.confirm_password) {
+        password = req.body.password
+    }
+
     try {
-        const result = await db.query("SELECT * FROM users WHERE email = $1", [user])
-        if(result.rows.length > 0) {
-            res.send("User already exists!")
-        }else {
+        let user = await db.query("SELECT * FROM users WHERE email = $1", [email])
+        if (user.rows.length > 0) {
+            res.send("User already exists!");
+        } else {
             bcrypt.hash(password, saltRounds, async (err, hash) => {
-                if(err) {
+                if (err) {
                     console.log("Error hashing password: ", err)
-                }else {
-                    await db.query("INSERT INTO users (email, password, name) VALUES ($1, $2, $3)", [user, hash, name])
-                    isLoggedIn = true
-                    res.render("index.ejs", {userName: result.rows[0].name, isLoggedIn: isLoggedIn})
+                } else {
+                    const result = await db.query("INSERT INTO users (name, email, phone, password) VALUES ($1, $2, $3, $4)", [name, email, phone, hash])
+                    res.send("User Registered Successfully!")
                 }
             })
         }
     } catch (error) {
-        console.log("An error occured!")
+        console.log("An Error occured!")
     }
 })
 
-app.post("/login", async (req,res) => {
-    const email = req.body.email
+app.post("/login", async (req, res) => {
+    const user = req.body.email || req.body.phone
     const password = req.body.password
+
     try {
-        const user = await db.query("SELECT * FROM users WHERE email = $1", [email])
-        if(user.rows.length > 0) {
-            const userPassword = await db.query("SELECT password FROM users WHERE email = $1", [email])
-            bcrypt.compare(password, userPassword.rows[0].password, (err, result) => {
+        let result = await db.query("SELECT * FROM users WHERE email = $1 OR phone = $1", [user])
+        if(result.rows.length > 0) {
+            const userPassword = result.rows[0].password
+            bcrypt.compare(password, userPassword, (err, result) => {
                 if(err) {
-                    console.log("Error logging user: ", err)
-                }else if(result) {
-                    isLoggedIn = true
-                    res.render("index.ejs", {userName: user.rows[0].name, isLoggedIn: isLoggedIn})
+                    console.log(err)
+                } else if (result) {
+                    res.send("User Logged in!")
                 } else {
-                    res.send("Incorrect Password!")
+                    res.send("Wrong password!")
                 }
-            } )
+            })
         } else {
-            res.send("User doesn't exist!")
+            res.send("User doesn't exists!")
         }
     } catch (error) {
-        console.log("An error occured1")
+        console.log(error)
     }
 })
 
