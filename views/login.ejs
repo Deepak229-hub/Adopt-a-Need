@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login/Signup Page</title>
+
+  <!-- PixelPurity Theme CSS -->
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', sans-serif;
+    }
+
+    html, body {
+      display: grid;
+      height: 100%;
+      width: 100%;
+      place-items: center;
+      background: linear-gradient(135deg, #f8f9fa, #e0e0e0);
+    }
+
+    ::selection {
+      background: #4e9af1;
+      color: #fff;
+    }
+
+    .wrapper {
+      overflow: hidden;
+      max-width: 400px;
+      background: #ffffff;
+      padding: 40px 30px;
+      border-radius: 20px;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.05);
+    }
+
+    .title-text {
+      display: flex;
+      width: 200%;
+    }
+
+    .title {
+      width: 50%;
+      font-size: 32px;
+      font-weight: 600;
+      text-align: center;
+      transition: 0.5s ease;
+      color: #333;
+    }
+
+    .slide-controls {
+      position: relative;
+      display: flex;
+      height: 50px;
+      width: 100%;
+      margin: 30px 0 20px 0;
+      border: 1px solid #dcdcdc;
+      border-radius: 12px;
+      background: #f4f4f4;
+    }
+
+    .slide {
+      width: 100%;
+      text-align: center;
+      line-height: 48px;
+      font-size: 16px;
+      font-weight: 500;
+      color: #888;
+      cursor: pointer;
+      z-index: 1;
+      transition: 0.3s ease;
+    }
+
+    .slider-tab {
+      position: absolute;
+      height: 100%;
+      width: 50%;
+      left: 0;
+      border-radius: 12px;
+      background: #4e9af1;
+      transition: 0.4s ease;
+      z-index: 0;
+    }
+
+    input[type="radio"] {
+      display: none;
+    }
+
+    #signup:checked ~ .slider-tab {
+      left: 50%;
+    }
+
+    #signup:checked ~ label.signup {
+      color: #fff;
+    }
+
+    #signup:checked ~ label.login {
+      color: #888;
+    }
+
+    #login:checked ~ label.signup {
+      color: #888;
+    }
+
+    #login:checked ~ label.login {
+      color: #fff;
+    }
+
+    .form-container {
+      width: 100%;
+      overflow: hidden;
+    }
+
+    .form-inner {
+      display: flex;
+      width: 200%;
+    }
+
+    .form-inner form {
+      width: 50%;
+      transition: 0.5s ease;
+    }
+
+    .field {
+      margin-top: 20px;
+      height: 50px;
+    }
+
+    .field input {
+      height: 100%;
+      width: 100%;
+      padding: 0 15px;
+      font-size: 16px;
+      border-radius: 12px;
+      border: 1px solid #dcdcdc;
+      background: #f9f9f9;
+      transition: 0.3s ease;
+    }
+
+    .field input:focus {
+      border-color: #4e9af1;
+      background: #fff;
+      box-shadow: 0 0 0 3px rgba(78, 154, 241, 0.1);
+    }
+
+    .field input::placeholder {
+      color: #aaa;
+    }
+
+    .pass-link, .signup-link {
+      text-align: center;
+      margin-top: 12px;
+      font-size: 14px;
+    }
+
+    .pass-link a,
+    .signup-link a {
+      color: #4e9af1;
+      text-decoration: none;
+      transition: 0.3s ease;
+    }
+
+    .pass-link a:hover,
+    .signup-link a:hover {
+      text-decoration: underline;
+    }
+
+    .btn {
+      height: 50px;
+      width: 100%;
+      margin-top: 30px;
+      position: relative;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .btn .btn-layer {
+      position: absolute;
+      width: 300%;
+      height: 100%;
+      left: -100%;
+      top: 0;
+      background: linear-gradient(to right, #4e9af1, #84c5f4);
+      border-radius: 12px;
+      transition: all 0.4s ease;
+    }
+
+    .btn:hover .btn-layer {
+      left: 0;
+    }
+
+    .btn input[type="submit"] {
+      position: relative;
+      height: 100%;
+      width: 100%;
+      background: none;
+      border: none;
+      color: #fff;
+      font-size: 18px;
+      font-weight: 600;
+      cursor: pointer;
+      z-index: 1;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="wrapper">
+    <% if(locals.errorMessage) { %>
+      <p style="color: red; text-align: center;"><%= errorMessage %></p>
+      <% } %>
+    <div class="form-container">
+      <div class="slide-controls">
+        <input type="radio" name="slide" id="login" checked />
+        <input type="radio" name="slide" id="signup" />
+        <label for="login" class="slide login">Login</label>
+        <label for="signup" class="slide signup">Signup</label>
+        <div class="slider-tab"></div>
+      </div>
+      <div class="form-inner">
+        <!-- Login Form -->
+        <form action="/login" method="post" class="login">
+          <div class="field">
+            <input type="text" placeholder="Email" name="username" required />
+          </div>
+          <div class="field">
+            <input type="password" placeholder="Password" name="password" required />
+          </div>
+          <div class="pass-link"><a href="#">Forgot password?</a></div>
+          <div class="field btn">
+            <div class="btn-layer"></div>
+            <input type="submit" value="Login" />
+          </div>
+          <div class="signup-link">Not a member? <a href="#">Signup now</a></div>
+        </form>
+
+        <!-- Signup Form -->
+        <form action="/register" method="post" class="signup">
+          <div class="field">
+            <input type="text" placeholder="Full Name" name="name" required />
+          </div>
+          <div class="field">
+            <input type="text" placeholder="Email" name="username" required />
+          </div>
+          <div class="field">
+            <input type="password" placeholder="Password" name="password" required />
+          </div>
+          <div class="field">
+            <input type="password" placeholder="Confirm password" name="confirm_password" required />
+          </div>
+          <div class="field btn">
+            <div class="btn-layer"></div>
+            <input type="submit" value="Signup" />
+          </div>
+          <div class="signup-link">Already have an account? <a href="#">Login here</a></div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- JavaScript for form toggle -->
+  <script>
+    const loginForm = document.querySelector("form.login");
+    const loginBtn = document.querySelector("label.login");
+    const signupBtn = document.querySelector("label.signup");
+
+    const signupLinks = document.querySelectorAll(".signup-link a");
+
+    signupLinks.forEach(link => {
+      link.addEventListener("click", function (e) {
+        e.preventDefault();
+        if (this.textContent.toLowerCase().includes("signup")) {
+          signupBtn.click();
+        } else {
+          loginBtn.click();
+        }
+      });
+    });
+
+    signupBtn.onclick = () => {
+      loginForm.style.marginLeft = "-50%";
+    };
+
+    loginBtn.onclick = () => {
+      loginForm.style.marginLeft = "0%";
+    };
+  </script>
+
+</body>
+</html>
