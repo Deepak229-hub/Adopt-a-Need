@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Login/Signup Page</title>
 
   <!-- PixelPurity Theme CSS -->
@@ -16,7 +17,8 @@
       font-family: 'Inter', sans-serif;
     }
 
-    html, body {
+    html,
+    body {
       display: grid;
       height: 100%;
       width: 100%;
@@ -90,23 +92,23 @@
       display: none;
     }
 
-    #signup:checked ~ .slider-tab {
+    #signup:checked~.slider-tab {
       left: 50%;
     }
 
-    #signup:checked ~ label.signup {
+    #signup:checked~label.signup {
       color: #fff;
     }
 
-    #signup:checked ~ label.login {
+    #signup:checked~label.login {
       color: #888;
     }
 
-    #login:checked ~ label.signup {
+    #login:checked~label.signup {
       color: #888;
     }
 
-    #login:checked ~ label.login {
+    #login:checked~label.login {
       color: #fff;
     }
 
@@ -151,7 +153,8 @@
       color: #aaa;
     }
 
-    .pass-link, .signup-link {
+    .pass-link,
+    .signup-link {
       text-align: center;
       margin-top: 12px;
       font-size: 14px;
@@ -207,59 +210,62 @@
     }
   </style>
 </head>
+
 <body>
 
   <div class="wrapper">
     <% if(locals.errorMessage) { %>
-      <p style="color: red; text-align: center;"><%= errorMessage %></p>
+      <p style="color: red; text-align: center;">
+        <%= errorMessage %>
+      </p>
       <% } %>
-    <div class="form-container">
-      <div class="slide-controls">
-        <input type="radio" name="slide" id="login" checked />
-        <input type="radio" name="slide" id="signup" />
-        <label for="login" class="slide login">Login</label>
-        <label for="signup" class="slide signup">Signup</label>
-        <div class="slider-tab"></div>
-      </div>
-      <div class="form-inner">
-        <!-- Login Form -->
-        <form action="/login" method="post" class="login">
-          <div class="field">
-            <input type="text" placeholder="Email" name="username" required />
+        <div class="form-container">
+          <div class="slide-controls">
+            <input type="radio" name="slide" id="login" checked />
+            <input type="radio" name="slide" id="signup" />
+            <label for="login" class="slide login">Login</label>
+            <label for="signup" class="slide signup">Signup</label>
+            <div class="slider-tab"></div>
           </div>
-          <div class="field">
-            <input type="password" placeholder="Password" name="password" required />
-          </div>
-          <div class="pass-link"><a href="#">Forgot password?</a></div>
-          <div class="field btn">
-            <div class="btn-layer"></div>
-            <input type="submit" value="Login" />
-          </div>
-          <div class="signup-link">Not a member? <a href="#">Signup now</a></div>
-        </form>
+          <div class="form-inner">
+            <!-- Login Form -->
+            <form action="/login" method="post" class="login">
+              <div class="field">
+                <input type="text" placeholder="Email" name="username" required />
+              </div>
+              <div class="field">
+                <input type="password" placeholder="Password" name="password" required />
+              </div>
+              <div class="pass-link"><a href="#">Forgot password?</a></div>
+              <div class="field btn">
+                <div class="btn-layer"></div>
+                <input type="submit" value="Login" />
+              </div>
+              <div class="signup-link">Not a member? <a href="#">Signup now</a></div>
+            </form>
 
-        <!-- Signup Form -->
-        <form action="/register" method="post" class="signup">
-          <div class="field">
-            <input type="text" placeholder="Full Name" name="name" required />
+            <!-- Signup Form -->
+            <form action="/register" method="post" class="signup">
+              <div class="field">
+                <input type="text" placeholder="Full Name" name="name" required />
+              </div>
+              <div class="field">
+                <input type="text" placeholder="Email" name="username" required />
+              </div>
+              <div class="field">
+                <input type="password" placeholder="Password" name="password" required />
+              </div>
+              <div class="field">
+                <input type="password" placeholder="Confirm password" name="confirm_password" required />
+              </div>
+              <div class="field btn">
+                <div class="btn-layer"></div>
+                <input type="submit" value="Signup" />
+              </div>
+              <div class="signup-link">Already have an account? <a href="#">Login here</a></div>
+            </form>
           </div>
-          <div class="field">
-            <input type="text" placeholder="Email" name="username" required />
-          </div>
-          <div class="field">
-            <input type="password" placeholder="Password" name="password" required />
-          </div>
-          <div class="field">
-            <input type="password" placeholder="Confirm password" name="confirm_password" required />
-          </div>
-          <div class="field btn">
-            <div class="btn-layer"></div>
-            <input type="submit" value="Signup" />
-          </div>
-          <div class="signup-link">Already have an account? <a href="#">Login here</a></div>
-        </form>
-      </div>
-    </div>
+        </div>
   </div>
 
   <!-- JavaScript for form toggle -->
@@ -291,4 +297,5 @@
   </script>
 
 </body>
+
 </html>

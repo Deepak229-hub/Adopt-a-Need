@@ -47,10 +47,54 @@ app.get("/register", (req, res) => {
     res.render("login.ejs")
 })
 
+app.get("/profile", (req, res) => {
+    if (req.isAuthenticated()) {
+        res.render("profile.ejs", {user: req.user})
+    } else {
+        res.render("login.ejs")
+    }
+})
+
+app.post("/profileupdate", async (req, res) => {
+    let updates = {
+        name: req.body.updatedName,
+        email: req.body.updatedEmail,
+        contact: req.body.updatedContact,
+        role: req.body.updatedRole,
+        address: req.body.updatedAddress
+    }
+    try {
+        let result = await db.query("SELECT * FROM users WHERE id=$1", [req.user.id])
+        const updatedUser = await db.query(`UPDATE users SET name=$1, email=$2, phone=$3, role=$4, address=$5 WHERE id=$6 RETURNING *`, [
+            updates.name ? updates.name : result.rows[0].name,
+            updates.email ? updates.email : result.rows[0].email,
+            updates.contact ? updates.contact : result.rows[0].phone,
+            updates.role ? updates.role : result.rows[0].role,
+            updates.address ? updates.address : result.rows[0].address,
+            result.rows[0].id
+        ])
+        req.user = updatedUser.rows[0]
+        res.redirect("/profile")
+    } catch (err) {
+        console.log(err)
+    }
+    
+    console.log(updates)
+})
+
 app.post("/login", passport.authenticate("local", {
     successRedirect: "/",
     failureRedirect: "/login"
 }))
+
+app.get("/logout", (req, res) => {
+    req.logout((err) => {
+        if(err) {
+            return err
+        }
+        res.redirect("/")
+    })
+})
 
 app.post("/register", async (req, res) => {
     const name = req.body.name

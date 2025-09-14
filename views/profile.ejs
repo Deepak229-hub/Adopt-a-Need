@@ -1,0 +1,290 @@
+<script type="text/javascript">
+        var gk_isXlsx = false;
+        var gk_xlsxFileLookup = {};
+        var gk_fileData = {};
+        function filledCell(cell) {
+          return cell !== '' && cell != null;
+        }
+        function loadFileData(filename) {
+        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
+            try {
+                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
+                var firstSheetName = workbook.SheetNames[0];
+                var worksheet = workbook.Sheets[firstSheetName];
+
+                // Convert sheet to JSON to filter blank rows
+                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
+                // Filter out blank rows (rows where all cells are empty, null, or undefined)
+                var filteredData = jsonData.filter(row => row.some(filledCell));
+
+                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
+                var headerRowIndex = filteredData.findIndex((row, index) =>
+                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
+                );
+                // Fallback
+                if (headerRowIndex === -1 || headerRowIndex > 25) {
+                  headerRowIndex = 0;
+                }
+
+                // Convert filtered JSON back to CSV
+                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
+                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
+                return csv;
+            } catch (e) {
+                console.error(e);
+                return "";
+            }
+        }
+        return gk_fileData[filename] || "";
+        }
+        </script><!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>User Profile - Adopt-a-Need</title>
+  <style>
+    /* Reset */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #f8faff, #f3f6fd);
+      color: #333;
+      display: flex;
+      overflow-x: hidden;
+    }
+    /* Sidebar */
+    .sidebar {
+      width: 260px;
+      background: linear-gradient(180deg, #4facfe, #00f2fe);
+      color: white;
+      height: 100vh;
+      padding: 30px 20px;
+      position: fixed;
+      top: 0;
+      left: 0;
+      transition: transform 0.3s ease;
+      z-index: 1000;
+      box-shadow: 3px 0 20px rgba(0,0,0,0.2);
+    }
+    .sidebar h2 {
+      text-align: center;
+      margin-bottom: 40px;
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      animation: fadeSlide 1s ease forwards;
+    }
+    .sidebar nav a {
+      display: block;
+      color: white;
+      text-decoration: none;
+      padding: 12px 18px;
+      margin: 8px 0;
+      border-radius: 10px;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+    .sidebar nav a::before {
+      content: "";
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 0;
+      background: rgba(255, 255, 255, 0.3);
+      transition: width 0.3s ease;
+      border-radius: 10px;
+    }
+    .sidebar nav a:hover::before,
+    .sidebar nav a.active::before {
+      width: 100%;
+    }
+    .sidebar nav a span {
+      position: relative;
+      z-index: 2;
+    }
+    /* Main Content */
+    .main-content {
+      margin-left: 260px;
+      padding: 25px;
+      width: 100%;
+      transition: margin-left 0.3s ease;
+      animation: fadeIn 0.8s ease;
+    }
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 25px;
+      animation: fadeSlide 1s ease forwards;
+    }
+    header h1 {
+      font-size: 24px;
+      font-weight: 600;
+      color: #2c3e50;
+    }
+    #menu-toggle {
+      display: none;
+      font-size: 26px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: #2c3e50;
+    }
+    /* Sections */
+    section { display: block; animation: fadeIn 0.6s ease forwards; }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeSlide {
+      from { opacity: 0; transform: translateX(-30px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+    /* Profile Section */
+    .profile-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+    .profile-display {
+      flex: 1;
+      min-width: 300px;
+      background: white;
+      padding: 25px;
+      border-radius: 15px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+      animation: fadeSlide 1s ease;
+    }
+    .profile-display h2 {
+      font-size: 20px;
+      font-weight: 600;
+      color: #0072ff;
+      margin-bottom: 15px;
+    }
+    .profile-display p {
+      margin: 10px 0;
+      font-size: 16px;
+      color: #2c3e50;
+    }
+    .profile-display p strong {
+      font-weight: 600;
+      color: #555;
+    }
+    /* Forms */
+    .form-container {
+      flex: 1;
+      min-width: 300px;
+      background: white;
+      padding: 25px;
+      border-radius: 15px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+      animation: fadeSlide 1s ease;
+    }
+    .form-container h2 {
+      margin-bottom: 15px;
+      font-size: 20px;
+      font-weight: 600;
+      color: #0072ff;
+    }
+    .form-container label {
+      display: block;
+      margin: 10px 0 5px;
+      font-weight: 500;
+    }
+    .form-container input,
+    .form-container textarea {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-size: 15px;
+      transition: 0.3s;
+    }
+    .form-container input:focus,
+    .form-container textarea:focus {
+      border-color: #0072ff;
+      box-shadow: 0 0 8px rgba(0,114,255,0.2);
+      outline: none;
+    }
+    .form-container button {
+      margin-top: 20px;
+      padding: 12px 20px;
+      background: linear-gradient(90deg, #4facfe, #00f2fe);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    .form-container button:hover {
+      opacity: 0.9;
+      transform: translateY(-2px);
+    }
+    /* Responsive */
+    @media (max-width: 768px) {
+      .sidebar { transform: translateX(-100%); position: absolute; }
+      .sidebar.active { transform: translateX(0); }
+      .main-content { margin-left: 0; }
+      #menu-toggle { display: block; }
+      .profile-container { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <h2>Adopt-a-Need</h2>
+    <nav>
+      <a href="#" class="nav-link active" data-page="profile"><span>Profile</span></a>
+      <a href="/logout" class="nav-link"><span>Log out</span></a>
+    </nav>
+  </aside>
+  <!-- Main -->
+  <main class="main-content">
+    <header>
+      <button id="menu-toggle">☰</button>
+      <h1 id="page-title">Profile</h1>
+    </header>
+    <!-- Profile Section -->
+    <section id="profile">
+      <div class="profile-container">
+        <div class="profile-display">
+          <h2>User Profile</h2>
+          <p><strong>Name:</strong> <span id="display-name"><%= user.name %></span></p>
+          <p><strong>Email:</strong> <span id="display-email"><%= user.email %></span></p>
+          <p><strong>Role:</strong> <span id="display-role"><%= user.role %></span></p>
+          <p><strong>Contact Number:</strong> <span id="display-contact"><%= user.phone %></span></p>
+          <p><strong>Address:</strong> <span id="display-address"><%= user.address %></span></p>
+          <p><strong>Joined Date:</strong> <span id="display-joined"><%= user.created_at.slice(0, 10) %></span></p>
+        </div>
+        <div class="form-container">
+          <h2>Edit Profile</h2>
+          <form id="profile-edit-form" action="/profileupdate" method="post">
+            <label>Name:</label>
+            <input type="text" id="profile-name" name="updatedName" placeholder="Enter name"/>
+            <label>Email:</label>
+            <input type="email" id="profile-email" name="updatedEmail" placeholder="Enter email"/>
+            <label>Role:</label>
+            <input type="text" id="profile-role" name="updatedRole" placeholder="Enter role"/>
+            <label>Contact Number:</label>
+            <input type="text" id="profile-contact" name="updatedContact" placeholder="Enter contact number"/>
+            <label>Address:</label>
+            <textarea id="profile-address" name="updatedAddress" placeholder="Enter address"></textarea>
+            <button type="submit">Save Changes</button>
+            <small>*Changes will take place the next time you log in!</small>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+  <script>
+    // Sidebar toggle
+    document.getElementById("menu-toggle").addEventListener("click", () => {
+      document.querySelector(".sidebar").classList.toggle("active");
+    });
+  </script>
+</body>
+</html>
