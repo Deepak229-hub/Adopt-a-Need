@@ -1,21 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home page</title>
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
-        rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-    </style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+</style>
 </head>
-
 <body>
     <!-- Navbar -->
     <header>
@@ -28,54 +25,54 @@
                     <li><a href="#values">Our Values</a></li>
                     <li><a href="#services">Services</a></li>
                     <li><a href="#stories">Top Stories</a></li>
-                    <li><a href="/login">Sign In</a></li>
+                    <li><a href="#">Sign In</a></li>
                 </ul>
             </div>
             <div class="btn">
-                <button class="donate-btn">Donate Now</button>
-            </div>
+                <button class="donate-btn">Donate Now</button> 
+                <a href="/profile"><i class="fa-solid fa-user"></i></a>
+           </div>
         </nav>
     </header>
 
     <!-- Donation Window-->
-    <div class="donation-window">
-        <div class="donation-content">
-            <span class="close-btn" onclick="closeDonationWindow()">&times;</span>
-            <h2>Make a Donation</h2>
-            <form>
-                <label for="name">Name:</label>
-                <input type="text" id="name" name="name" required>
+<div class="donation-window">
+    <div class="donation-content">
+        <span class="close-btn" onclick="closeDonationWindow()">&times;</span>
+        <h2>Make a Donation</h2>
+        <form>
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
 
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email" required>
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
 
-                <label for="amount">Donation Amount:</label>
-                <input type="number" id="amount" name="amount" required>
+            <label for="amount">Donation Amount:</label>
+            <input type="number" id="amount" name="amount" required>
 
-                <button type="submit">Donate</button>
-            </form>
-        </div>
+            <button type="submit">Donate</button>
+        </form>
     </div>
+</div>
 
 
     <!-- Hero section -->
-    <section class="hero" id="home">
-        <div class="container">
-            <h1>Nurturing Hopes,Building Families</h1>
+      <section class="hero" id="home">
+        <div class="container" data-aos="fade-up" data-aos-duration="1000">
+            <h1 >Nurturing Hopes,Building Families</h1>
             <p>One act of kindness can change a child's whole world...</p>
             <a href="#" class="btn-2">Donate Now</a>
+            <a href="/adoption" class="adopt-btn">Adoption</a>
         </div>
     </section>
-
+    
     <!-- About Us -->
     <section class="about" id="about">
         <div class="abt-container">
-            <h2>About Us</h2>
-            <img src="./assets/aboutus.png" alt="about-us" class="about-img">
-            <p>Adopt-a-Need is a non-profit organization dedicated to connecting donors with children in need of support
-                and care. Our mission is to provide a loving and nurturing environment for children who are waiting for
-                adoption, ensuring they have the resources and opportunities they deserve.</p>
-            <a href="#" class="btn-3">Learn More</a>
+            <h2 data-aos="fade-right" data-aos-duration="1000">About Us</h2>
+            <img src="./assets/aboutus.png" alt="about-us" class="about-img" data-aos="fade-right" data-aos-duration="1000">
+            <p data-aos="fade-right" data-aos-duration="1000">Adopt-a-Need is a non-profit organization dedicated to connecting donors with children in need of support and care. Our mission is to provide a loving and nurturing environment for children who are waiting for adoption, ensuring they have the resources and opportunities they deserve.</p>
+            <a href="#" class="btn-3" data-aos="fade-right" data-aos-duration="1000">Learn More</a>
         </div>
     </section>
 
@@ -84,34 +81,29 @@
         <div class="container">
             <h2>Our Values</h2>
             <img src="./assets/ourvalue.png" alt="our values" class="value-img">
-            <p>Guided by <span>compassion</span> and <span>respect</span>, we combine
-                <span>creativity</span>,<span>innovation</span>, <span>integrity</span> and <span>commitment</span>;
-                creating a better and kinder world for all children.</p>
+            <p>Guided by <span>compassion</span> and <span>respect</span>, we combine <span>creativity</span>,<span>innovation</span>, <span>integrity</span> and <span>commitment</span>; creating a better and kinder world for all children.</p>
         </div>
     </section>
 
-    <!-- Our Services section -->
+     <!-- Our Services section -->
     <section class="services" id="services">
         <div class="container">
             <h2>Our Services</h2>
             <div class="service-grid">
-                <div class="service-item">
+                <div class="service-item" data-aos="flip-left" data-aos-duration="1000">
                     <img src="./assets/service1.jpg" alt="Service 1">
                     <h3>Volunteer Scheduling System</h3>
-                    <p>Easily manage your time and sign up for activities that fit your schedule. Our system makes
-                        volunteering simple, organized, and impactful.</p>
+                    <p>Easily manage your time and sign up for activities that fit your schedule. Our system makes volunteering simple, organized, and impactful.</p>
                 </div>
-                <div class="service-item">
+                <div class="service-item" data-aos="flip-left" data-aos-duration="1000">
                     <img src="./assets/service2.jpg" alt="Service 2">
                     <h3>Matchmaking</h3>
-                    <p>We connect caring individuals and families with children in need, creating meaningful bonds and
-                        brighter futures.</p>
+                    <p>We connect caring individuals and families with children in need, creating meaningful bonds and brighter futures.</p>
                 </div>
-                <div class="service-item">
+                <div class="service-item" data-aos="flip-left" data-aos-duration="1000">
                     <img src="./assets/service3.jpg" alt="Service 3">
                     <h3>Targeted Donations</h3>
-                    <p>Your support goes exactly where it's needed most. Choose specific causes—like education,
-                        healthcare, or nutrition—to make your contribution more personal and effective.</p>
+                    <p>Your support goes exactly where it's needed most. Choose specific causes—like education, healthcare, or nutrition—to make your contribution more personal and effective.</p>
                 </div>
             </div>
         </div>
@@ -125,32 +117,28 @@
                 <div class="story-item" id="story1">
                     <img src="./assets/story1.jpg" alt="Story 1" class="story-img">
                     <h3>Story 1</h3>
-                    <p>Discover how our organization has made a difference in the lives of children and families through
-                        heartwarming stories of hope and transformation.</p>
+                    <p>Discover how our organization has made a difference in the lives of children and families through heartwarming stories of hope and transformation.</p>
                 </div>
                 <div class="story-right">
                     <div class="story-item" id="story2">
                         <img src="./assets/story2.jpg" alt="Story 2" class="story-img">
                         <div class="story-text">
                             <h3>Story 2</h3>
-                            <p>Read inspiring stories of children finding loving homes and families coming together
-                                through the power of adoption.</p>
+                            <p>Read inspiring stories of children finding loving homes and families coming together through the power of adoption.</p>
                         </div>
                     </div>
                     <div class="story-item" id="story3">
-                        <img src="./assets/story3.jpg" alt="Story 3" class="story-img">
+                        <img src="./assets/story3.jpg" alt="Story 3"  class="story-img">
                         <div class="story-text">
                             <h3>Story 3</h3>
-                            <p>Explore the journeys of our dedicated volunteers and donors who have played a crucial
-                                role in changing lives and creating brighter futures.</p>
+                            <p>Explore the journeys of our dedicated volunteers and donors who have played a crucial role in changing lives and creating brighter futures.</p>
                         </div>
                     </div>
                     <div class="story-item" id="story4">
                         <img src="./assets/story4.jpg" alt="Story 4" class="story-img">
                         <div class="story-text">
                             <h3>Story 4</h3>
-                            <p>Explore the journeys of our dedicated volunteers and donors who have played a crucial
-                                role in changing lives and creating brighter futures.</p>
+                            <p>Explore the journeys of our dedicated volunteers and donors who have played a crucial role in changing lives and creating brighter futures.</p>
                         </div>
                     </div>
                 </div>
@@ -180,7 +168,7 @@
                 <div class="footer-social">
                     <h3>Follow Us</h3>
                     <ul>
-                        <a href="#"><i class="fa-brands fa-facebook"></i></i></a>
+                        <a href="https://www.facebook.com"><i class="fa-brands fa-facebook"></i></i></a>
                         <a href="#"><i class="fa-brands fa-twitter"></i></a>
                         <a href="#"><i class="fa-brands fa-instagram"></i></i></a>
                         <a href="#"><i class="fa-brands fa-youtube"></i></a>
@@ -198,6 +186,11 @@
             </div>
         </div>
     </footer>
+     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+      <script>
+        AOS.init({
+            once: true,
+        });
+      </script>
 </body>
-
 </html>

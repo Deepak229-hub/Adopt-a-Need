@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adoption page</title>
+    <link rel="stylesheet" href="adoption_style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+</head>
+<body>
+    <!-- Navbar -->
+    <header>
+        <nav class="container">
+            <div class="logo"><img src="./assets/Logo.png" alt=""></div>
+            <div class="nav-item">
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="../index.html#about">About</a></li>
+                    <li><a href="../index.html#values">Our Values</a></li>
+                    <li><a href="../index.html#services">Services</a></li>
+                    <li><a href="../index.html#stories">Top Stories</a></li>
+                    <li><a href="#">Sign In</a></li>
+                </ul>
+            </div>
+            <div class="btn">
+                <button class="donate-btn">Donate Now</button> 
+                <a href="/profile"><i class="fa-solid fa-user"></i></a>
+           </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+     <section class="hero" id="home">
+        <div class="hero-container">
+            <div class="hero-content">
+                <h1>Adoption</h1>
+                <p>We help couples in India to navigate the Indian adoption process. We are with you from start to finish.</p>
+            </div>
+            <div class="hero-img">
+                <img src="./assets/bg_home_2.png" alt="">
+            </div>
+        </div>
+     </section>
+
+     <!-- Types of adoption -->
+        <section class="adoption-types" id="types">
+            <div class="intro">
+                <h2>We do our best</h2>
+                <div class="intro-cards">
+                    <div class="intro-card">
+                        <p>Ensure each adoption is undertaken in the best interest of the child.</p>
+                    </div>
+                </div>
+                <div class="intro-cards">
+                    <div class="intro-card">
+                        <p>Prioritise support for the adoption triad: child, birth mother and adoptive family</p>
+                    </div>
+                </div>
+                <div class="intro-cards">
+                    <div class="intro-card">
+                        <p>Prevent the abduction, exploitation, sale or trafficking of children</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="types-container">
+                <h2>Types of Adoption</h2>
+                <div class="type-cards">
+                    <div class="type-card">
+                        <img src="./assets/round-baby.png" alt="Baby Adoption">
+                        <h3>Adopt an infant (less than 2 years old)</h3>
+                        <p>Adopt-a-Need operates baby hatches and facilitates adoptions for babies whose birth mothers and parents have chosen adoption.</p>
+                    </div>
+                    <div class="type-card">
+                        <img src="./assets/round-older.png" alt="Older Adoption">
+                        <h3>Adopt an older child(2-18 years old)</h3>
+                        <p>Older children need love, care, attention and family urgently. We urge Indians to adopt older children, even a pair of siblings.</p>
+                    </div>
+                    <div class="type-card">
+                        <img src="./assets/round-special.png" alt="Special Adoption">
+                        <h3>Adopt a special needs child</h3>
+                        <p>Many special needs children would thrive in the care of a loving family. Adopting children with special needs can be incredibly rewarding and fulfilling.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!--Adoption Steps -->
+        <section class="adoption-steps">
+            <div class="steps-container">
+                <div class="steps-content">
+                    <div class="steps-heading">
+                        <h2>Steps to adopt a child</h2>
+                    </div>
+                    <div class="steps-para">
+                        <p>Are you thinking of adopting a child in India? There are a few steps to follow through but worry not; the adoption process is straightforward and not as complicated as you may think.</p>
+                        <p>Adopting a child can be an enormously enriching experience and Adpot-a-Need invites families from all ethnic groups and backgrounds.</p>
+                    </div>
+                    <div class="main-steps">
+                        
+                        <div class="dropdown-container">
+                            <div class="dropdown-header" onclick="toggleDropdown(this)">
+                                <h3>Step 1: Enquiry</h3>
+                                <span class="dropdown-icon">+</span>
+                                <!-- <a href="" class="step-info"><i class="fa-solid fa-plus"></i></a> -->
+                            </div>
+                            <div class="dropdown-content">
+                                <p>Contact us to discuss your interest in adoption. We will provide you with information about the adoption process and answer any questions you may have.</p>
+                            </div>
+                        </div>
+
+
+                        <div class="dropdown-container">
+                            <div class="dropdown-header" onclick="toggleDropdown(this)">
+                                <h3>Step 2: Application</h3>
+                                <span class="dropdown-icon">+</span>
+                                <!-- <a href="" class="step-info"><i class="fa-solid fa-plus"></i></a> -->
+                            </div>
+                            <div class="dropdown-content">
+                                <p>Complete an adoption application form and provide us with the necessary documentation, including identification, proof of income, and references.</p>
+                            </div>
+                        </div>
+
+                        <div class="dropdown-container">
+                            <div class="dropdown-header" onclick="toggleDropdown(this)">
+                                <h3>Step 3: Home Study</h3>
+                                <span class="dropdown-icon">+</span>
+                                <!-- <a href="" class="step-info"><i class="fa-solid fa-plus"></i></a> -->
+                            </div>
+                            <div class="dropdown-content">
+                                <p>A social worker will visit your home to assess your suitability as an adoptive parent. This includes interviews, background checks, and a review of your living situation.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="dropdown-container">
+                            <div class="dropdown-header" onclick="toggleDropdown(this)">
+                                <h3>Step 4: Child Matching</h3>
+                                <span class="dropdown-icon">+</span>
+                                <!-- <a href="" class="step-info"><i class="fa-solid fa-plus"></i></a> -->
+                            </div>
+                            <div class="dropdown-content">
+                                <p>Once your home study is approved, we will work to match you with a child who meets your preferences and needs.</p>
+                            </div>
+                        </div>
+
+                        <div class="dropdown-container">
+                            <div class="dropdown-header" onclick="toggleDropdown(this)">
+                                <h3>Step 5: Placement</h3>
+                                <span class="dropdown-icon">+</span>
+                                <!-- <a href="" class="step-info"><i class="fa-solid fa-plus"></i></a> -->
+                            </div>
+                            <div class="dropdown-content">
+                                <p>Once a match is made, you will be given the opportunity to meet the child and spend time together before the placement is finalized.</p>
+                            </div>
+                        </div>
+
+                        <div class="dropdown-container">
+                            <div class="dropdown-header" onclick="toggleDropdown(this)">
+                                <h3>Step 6: Finalization</h3>
+                                <span class="dropdown-icon">+</span>
+                                <!-- <a href="" class="step-info"><i class="fa-solid fa-plus"></i></a> -->
+                            </div>
+                            <div class="dropdown-content">
+                                <p>After a period of supervision, the adoption will be finalized in court, and you will become the legal parent of the child.</p>
+                            </div>
+                        </div>  
+                        
+                        <div class="dropdown-container">
+                            <div class="dropdown-header" onclick="toggleDropdown(this)">
+                                <h3>Step 7: Post-Adoption Support</h3>
+                                <span class="dropdown-icon">+</span>
+                                <!-- <a href="" class="step-info"><i class="fa-solid fa-plus"></i></a> -->
+                            </div>
+                            <div class="dropdown-content">
+                                <p>We provide ongoing support to adoptive families, including counseling, support groups, and resources to help you navigate the challenges of adoption.</p>
+                            </div>
+                        </div>
+
+                        <div class="dropdown-container">
+                            <div class="dropdown-header" onclick="toggleDropdown(this)">
+                                <h3>Step 8: Celebration</h3>
+                                <span class="dropdown-icon">+</span>
+                                <!-- <a href="" class="step-info"><i class="fa-solid fa-plus"></i></a> -->
+                            </div>
+                            <div class="dropdown-content">
+                                <p>Celebrate the joy of adoption with your new family member and create lasting memories together.</p>
+                            </div>
+                        </div>
+
+                        <div class="dropdown-container">
+                            <div class="dropdown-header" onclick="toggleDropdown(this)">
+                                <h3>Step 9: Stay Connected</h3>
+                                <span class="dropdown-icon">+</span>
+                                <!-- <a href="" class="step-info"><i class="fa-solid fa-plus"></i></a> -->
+                            </div>
+                            <div class="dropdown-content">
+                                <p>Stay connected with us and other adoptive families through our community events and activities.</p>
+                            </div>
+                        </div> 
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Eligibility Section -->
+         <section class="eligibility">
+            <div class="eligibility-container">
+                <h2>Am I Eligible?</h2>
+                <p>This simple assessment, curated by Adopt-a-Need, will determine your eligibility according to Adopt-a-Need's terms and criteria. If you have passed this eligibility assessment and have made the registration payment, Adopt-a-Need's adoption team will be notified automatically and you will be able to start your adoption journey seamlessly.</p>
+        
+                <!-- <h2>Eligibility Criteria for Adoption in India</h2>
+                <p>To be eligible to adopt a child in India, you must meet the following criteria:</p>
+                <ul>
+                    <li>You must be at least 25 years old and at least 21 years older than the child you wish to adopt.</li>
+                    <li>You must be married for at least two years. Single individuals can also adopt, but preference is given to married couples.</li>
+                    <li>You must be financially stable and able to provide for the child's needs.</li>
+                    <li>You must be of sound mind and body, and able to care for a child.</li>
+                    <li>You must not have any criminal record or history of child abuse.</li>
+                </ul>
+                <p>In addition to these criteria, there may be additional requirements depending on the type of adoption you are pursuing (e.g., domestic vs. international adoption).</p>
+                <p>It's important to note that the adoption process can be complex and may take several months or even years to complete. Working with a reputable adoption agency can help ensure that you meet all eligibility criteria and navigate the process successfully.</p> -->
+            </div>
+            <div class="eligibility-btn"><a href="../Application/index.html">Get Started</a></div>
+         </section>
+
+         <!-- Adoption Stories -->
+            <!-- <section class="adoption-stories">
+                <div class="stories-container">
+                    <h2>Adoption Stories</h2>
+                    <p>Adoption stories are always powerful and heartwarming to hear and read. Adoption has given so much impact in the lives of parents and the children involved. These are just some of the stories that have impacted us so much at Adopt-a-Need.</p>
+                </div>
+            </section> -->
+            
+             <!-- Footer -->
+            <footer>
+                <div class="container">
+                    <div class="footer-content">
+                        <div class="footer-logo">
+                            <img src="./assets/Logo.png" alt="Logo">
+                            <!-- <p>We are a caring home dedicated to nurturing and empowering orphaned and underprivileged children. Our mission is to provide them with love, education, healthcare, and opportunities for a brighter future. With the support of kind-hearted donors and volunteers, we work every day to create a safe, hopeful, and family-like environment where every child can grow with dignity and confidence.</p> -->
+                        </div>
+                        <div class="footer-links">
+                            <h3>Ouick Links</h3>
+                            <ul>
+                                <li><a href="../index.html#home">Home</a></li>
+                                <li><a href="../index.html#about">About</a></li>
+                                <li><a href="../index.html#values">Our Values</a></li>
+                                <li><a href="../index.html#services">Services</a></li>
+                                <li><a href="../index.html#stories">Top Stories</a></li>
+                                <li><a href="#">Sign In</a></li>
+                            </ul>
+                        </div>
+                        <div class="footer-social">
+                            <h3>Follow Us</h3>
+                            <ul>
+                                <a href="https://www.facebook.com"><i class="fa-brands fa-facebook"></i></i></a>
+                                <a href="#"><i class="fa-brands fa-twitter"></i></a>
+                                <a href="#"><i class="fa-brands fa-instagram"></i></i></a>
+                                <a href="#"><i class="fa-brands fa-youtube"></i></a>
+                            </ul>
+                        </div>
+                        <div class="footer-contact">
+                            <h3>Stay Updated</h3>
+                            <p>Subscribe to our newsletter for recent news!</p>
+                            <input type="email" placeholder="Enter your email">
+                            <button class="subscribe-btn">Subscribe</button>
+                        </div>
+                    </div>
+                    <div class="footer-bottom">
+                        <p>&copy; 2025 Adopt-a-Need. All rights reserved.</p>
+                    </div>
+                </div>
+            </footer>
+
+        <!-- Script -->
+        <script>
+    function toggleDropdown(header) {
+      const content = header.nextElementSibling;
+      const icon = header.querySelector(".dropdown-icon");
+
+      content.classList.toggle("open");
+
+      if (content.classList.contains("open")) {
+        icon.textContent = "−"; // minus sign
+      } else {
+        icon.textContent = "+"; // plus sign
+      }
+    }
+  </script>
+</body>
+</html>
