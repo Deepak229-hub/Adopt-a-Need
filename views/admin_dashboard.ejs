@@ -302,9 +302,9 @@
     <h2>Adopt-a-Need</h2>
     <nav>
       <a href="#" class="nav-link active" data-page="dashboard"><span>Dashboard</span></a>
-      <a href="#" class="nav-link" data-page="children"><span>Children</span></a>
+      <!-- <a href="#" class="nav-link" data-page="children"><span>Children</span></a> -->
       <a href="#" class="nav-link" data-page="donations"><span>Donations</span></a>
-      <a href="#" class="nav-link" data-page="events"><span>Events</span></a>
+      <!-- <a href="#" class="nav-link" data-page="events"><span>Events</span></a> -->
       <a href="#" class="nav-link" data-page="volunteers"><span>Volunteers</span></a>
       <a href="#" class="nav-link" data-page="settings"><span>Settings</span></a>
     </nav>
@@ -314,7 +314,8 @@
   <main class="main-content">
     <header>
       <button id="menu-toggle">☰</button>
-      <h1 id="page-title">Dashboard</h1>
+      <h1 id="page-title">Welcome, <%= orphanage.name %>
+      </h1>
     </header>
 
     <!-- Dashboard -->
@@ -322,19 +323,20 @@
       <div class="stats">
         <div class="card">
           <h3>Children</h3>
-          <p>120</p>
+          <p>
+            <%= orphanage.children_count %>
+          </p>
         </div>
         <div class="card">
           <h3>Donations</h3>
-          <p>₹ 18,50,000</p>
-        </div>
-        <div class="card">
-          <h3>Events</h3>
-          <p>3 Upcoming</p>
+          <p>₹ <%= donation %>
+          </p>
         </div>
         <div class="card">
           <h3>Volunteers</h3>
-          <p>60</p>
+          <p>
+            <%= volunteers %>
+          </p>
         </div>
       </div>
       <div class="table-section">
@@ -348,28 +350,26 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>Donor 1</td>
-              <td>₹ 25,000</td>
-              <td>01-09-2025</td>
-            </tr>
-            <tr>
-              <td>Donor 2</td>
-              <td>₹ 15,000</td>
-              <td>05-09-2025</td>
-            </tr>
-            <tr>
-              <td>Donor 3</td>
-              <td>₹ 10,000</td>
-              <td>10-09-2025</td>
-            </tr>
+            <% recentDonations.forEach((donation)=> { %>
+              <tr>
+                <td>
+                  <%= donation.donor_name %>
+                </td>
+                <td>
+                  <%= donation.amount %>
+                </td>
+                <td>
+                  <%= donation.donation_date %>
+                </td>
+              </tr>
+              <% }) %>
           </tbody>
         </table>
       </div>
     </section>
 
     <!-- Children -->
-    <section id="children">
+    <!-- <section id="children">
       <div class="form-container">
         <h2>Add Child</h2>
         <label>Name:</label>
@@ -380,33 +380,21 @@
         <textarea placeholder="Health, education, etc."></textarea>
         <button>Add Child</button>
       </div>
-    </section>
+    </section> -->
 
     <!-- Donations -->
     <section id="donations">
       <div class="form-container">
         <h2>Record Donation</h2>
-        <label>Donor Name:</label>
-        <input type="text" placeholder="Donor's name" />
-        <label>Amount (₹):</label>
-        <input type="number" placeholder="Amount" />
-        <label>Date:</label>
-        <input type="date" />
-        <button>Save Donation</button>
-      </div>
-    </section>
-
-    <!-- Events -->
-    <section id="events">
-      <div class="form-container">
-        <h2>Add Event</h2>
-        <label>Event Title:</label>
-        <input type="text" placeholder="Event name" />
-        <label>Date:</label>
-        <input type="date" />
-        <label>Description:</label>
-        <textarea placeholder="Event details"></textarea>
-        <button>Add Event</button>
+        <form action="/saveDonation" method="post">
+          <label>Donor Name:</label>
+          <input name="name" type="text" placeholder="Donor's name" />
+          <label>Amount (₹):</label>
+          <input name="amount" type="number" placeholder="Amount" />
+          <input
+            style="margin-top: 20px; padding: 12px 20px; background: linear-gradient(90deg, #4facfe, #00f2fe); color: white; border: none; border-radius: 8px; font-size: 15px; font-weight: 600; cursor: pointer; transition: all 0.3s ease;"
+            type="submit" value="Save Donation">
+        </form>
       </div>
     </section>
 
@@ -414,26 +402,34 @@
     <section id="volunteers">
       <div class="form-container">
         <h2>Register Volunteer</h2>
-        <label>Name:</label>
-        <input type="text" placeholder="Full name" />
-        <label>Mobile:</label>
-        <input type="text" placeholder="Mobile number" />
-        <label>Availability:</label>
-        <textarea placeholder="Days and times available"></textarea>
-        <button>Register</button>
+        <form action="/addVolunteer" method="post">
+          <label>Name:</label>
+          <input type="text" name="name" placeholder="Full name" />
+          <label>Mobile:</label>
+          <input type="text" name="mobile" placeholder="Mobile number" />
+          <label>Availability:</label>
+          <textarea name="available" placeholder="Days available"></textarea>
+          <input
+            style="margin-top: 20px; padding: 12px 20px; background: linear-gradient(90deg, #4facfe, #00f2fe); color: white; border: none; border-radius: 8px; font-size: 15px; font-weight: 600; cursor: pointer; transition: all 0.3s ease;"
+            type="submit" value="Register"">
+        </form>
       </div>
     </section>
 
     <!-- Settings -->
-    <section id="settings">
-      <div class="form-container">
-        <h2>Settings</h2>
-        <label>Orphanage Name:</label>
-        <input type="text" placeholder="Orphanage name" />
-        <label>Admin Email:</label>
-        <input type="email" placeholder="Admin email" />
-        <button>Save Settings</button>
-      </div>
+    <section id=" settings">
+          <div class="form-container">
+            <h2>Settings</h2>
+            <form action="/update" method="post">
+              <label>Orphanage Name:</label>
+              <input type="text" name="name" placeholder="Orphanage name" />
+              <label>Admin Email:</label>
+              <input type="email" name="email" placeholder="Admin email" />
+              <input
+                style="margin-top: 20px; padding: 12px 20px; background: linear-gradient(90deg, #4facfe, #00f2fe); color: white; border: none; border-radius: 8px; font-size: 15px; font-weight: 600; cursor: pointer; transition: all 0.3s ease;"
+                type="submit" value="Save Settings">
+            </form>
+          </div>
     </section>
   </main>
 

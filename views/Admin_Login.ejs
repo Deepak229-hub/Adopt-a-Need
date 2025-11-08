@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Login - Adopt-a-Need</title>
+  <style>
+    /* Reset */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #f8faff, #f3f6fd);
+      color: #333;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    /* Login Container */
+    .login-container {
+      width: 400px;
+      background: white;
+      padding: 40px;
+      border-radius: 15px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+      animation: fadeIn 1s ease forwards;
+    }
+
+    .login-container h2 {
+      text-align: center;
+      font-size: 24px;
+      font-weight: 600;
+      color: #0072ff;
+      margin-bottom: 25px;
+    }
+
+    .login-container label {
+      display: block;
+      margin: 12px 0 6px;
+      font-weight: 500;
+    }
+
+    .login-container input {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-size: 15px;
+      transition: 0.3s;
+    }
+
+    .login-container input:focus {
+      border-color: #0072ff;
+      box-shadow: 0 0 8px rgba(0,114,255,0.2);
+      outline: none;
+    }
+
+    .login-container button {
+      margin-top: 25px;
+      padding: 12px 20px;
+      width: 100%;
+      background: linear-gradient(90deg, #4facfe, #00f2fe);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .login-container button:hover {
+      opacity: 0.9;
+      transform: translateY(-2px);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 480px) {
+      .login-container {
+        width: 90%;
+        padding: 30px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="login-container">
+    <h2>Admin Login</h2>
+    <form id="admin-login-form" action="/login" method="post">
+      <label for="admin-email">Admin Email</label>
+      <input type="email" id="admin-email" name="adminEmail" placeholder="Enter your admin email" required>
+
+      <label for="admin-password">Password</label>
+      <input type="password" id="admin-password" name="adminPassword" placeholder="Enter your password" required>
+
+      <button type="submit">Login</button>
+    </form>
+     <div style="text-align: center; margin-top: 12px; font-size: 14px;"><a style="color: #4e9af1; text-decoration: none; transition: 0.3s ease;" href="/register">Register</a> your orphanage?</div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Orphanage Registration - Adopt-a-Need</title>
+  <style>
+    /* Reset */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #f8faff, #f3f6fd);
+      color: #333;
+      display: flex;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 60px 20px; /* Added top and bottom padding */
+    }
+
+    /* Registration Container */
+    .registration-container {
+      width: 500px;
+      background: white;
+      padding: 40px;
+      border-radius: 15px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+      animation: fadeIn 1s ease forwards;
+      margin-bottom: 40px; /* Extra space at bottom */
+    }
+
+    .registration-container h2 {
+      text-align: center;
+      font-size: 24px;
+      font-weight: 600;
+      color: #0072ff;
+      margin-bottom: 25px;
+    }
+
+    .registration-container label {
+      display: block;
+      margin: 12px 0 6px;
+      font-weight: 500;
+    }
+
+    .registration-container input,
+    .registration-container select,
+    .registration-container textarea {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-size: 15px;
+      transition: 0.3s;
+    }
+
+    .registration-container input:focus,
+    .registration-container select:focus,
+    .registration-container textarea:focus {
+      border-color: #0072ff;
+      box-shadow: 0 0 8px rgba(0,114,255,0.2);
+      outline: none;
+    }
+
+    .registration-container button {
+      margin-top: 25px;
+      padding: 12px 20px;
+      width: 100%;
+      background: linear-gradient(90deg, #4facfe, #00f2fe);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .registration-container button:hover {
+      opacity: 0.9;
+      transform: translateY(-2px);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 520px) {
+      .registration-container {
+        width: 90%;
+        padding: 30px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="registration-container">
+    <p style="color:red"><%= locals.msg %></p>
+    <h2>Orphanage Registration</h2>
+    <form id="orphanage-registration-form" action="/register" method="post">
+      <label>Orphanage Name</label>
+      <input type="text" name="name" placeholder="Enter orphanage name" required>
+
+      <label>Orphanage Email</label>
+      <input type="email" name="email" placeholder="Enter email" required>
+
+      <label>Orphanage Phone</label>
+      <input type="tel" name="phone" placeholder="Enter phone number" required>
+
+      <label>Password</label>
+      <input type="password" name="password" placeholder="Enter password" required>
+
+      <label>Orphanage Type</label>
+      <select name="type" required>
+        <option value="">Select Type</option>
+        <option value="government">Government</option>
+        <option value="private">Private</option>
+        <option value="trust">Trust</option>
+      </select>
+
+      <label>Orphanage Address</label>
+      <textarea name="address" placeholder="Enter address" rows="3" required></textarea>
+
+      <label>Registration Number</label>
+      <input type="text" name="reg_number" placeholder="Enter registration number" required>
+
+      <!-- <label>Registration Certificate</label>
+      <input type="file" name="certificate" accept=".pdf,.jpg,.png" required> -->
+
+      <label>Children Capacity</label>
+      <input type="number" name="capacity" placeholder="Maximum children capacity" required>
+
+      <label>Current Children Count</label>
+      <input type="number" name="children_count" placeholder="Current children count" required>
+
+      <label>Bank Account Number</label>
+      <input type="text" name="bank_account" placeholder="Enter bank account number" required>
+
+      <label>UPI ID</label>
+      <input type="text" name="upi" placeholder="Enter UPI ID" required>
+
+      <button type="submit">Register Orphanage</button>
+    </form>
+  </div>
+</body>
+</html>

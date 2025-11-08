@@ -48,7 +48,7 @@ app.get("/register", (req, res) => {
 })
 
 app.get("/adoption", (req, res) => {
-    res.render("adoption.ejs")
+    (req.isAuthenticated()) ? res.render("adoption.ejs") : res.render("login.ejs")
 })
 
 app.get("/profile", (req, res) => {
