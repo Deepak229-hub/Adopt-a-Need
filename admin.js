@@ -7,6 +7,7 @@ import env from "dotenv"
 import session from "express-session"
 import passport from "passport"
 import { Strategy } from "passport-local"
+import { types } from "pg"
 
 const app = express()
 const port = 4000
@@ -35,6 +36,8 @@ const db = new pg.Client({
 
 db.connect()
 
+types.setTypeParser(1082, (val) => val)
+
 app.get("/", async (req, res) => {
     if (!req.isAuthenticated())
         return res.redirect("/login")
@@ -42,12 +45,49 @@ app.get("/", async (req, res) => {
         const result = await db.query("SELECT * FROM ORPHANAGES WHERE ORPHANAGE_ID=$1", [req.user.orphanage_id])
         const orphanage = result.rows[0]
         const donationAmount = await db.query("SELECT SUM(AMOUNT) FROM DONATIONS WHERE ORPHANAGE_ID=$1", [req.user.orphanage_id])
-        const volunteers = await db.query("SELECT COUNT(VOLUNTEER_ID) FROM VOLUNTEERS WHERE ORPHANAGE_ID=$1", [req.user.orphanage_id])
+        const volunteersCount = await db.query("SELECT COUNT(VOLUNTEER_ID) FROM VOLUNTEERS WHERE ORPHANAGE_ID=$1", [req.user.orphanage_id])
         const recentDonations = await db.query("SELECT * FROM DONATIONS WHERE ORPHANAGE_ID=$1 ORDER BY DONATION_DATE DESC LIMIT 10", [req.user.orphanage_id])
-        res.render("admin_dashboard.ejs", {orphanage, donation: donationAmount.rows[0].sum, volunteers: volunteers.rows[0].count, recentDonations:recentDonations.rows})
+        const volunteers = await db.query("SELECT * FROM VOLUNTEERS WHERE ORPHANAGE_ID=$1", [req.user.orphanage_id])
+        const children = await db.query("SELECT * FROM CHILDREN WHERE ORPHANAGE_ID=$1", [req.user.orphanage_id])
+        res.render("admin_dashboard.ejs", {orphanage, donation: donationAmount.rows[0].sum, volunteersCount: volunteersCount.rows[0].count, recentDonations:recentDonations.rows, volunteers: volunteers.rows, children: children.rows})
     } catch (error) {
         console.log(error)
         res.status(500)
+    }
+})
+
+app.get("/editchildinfo/:id", async (req, res) => {
+    if(!req.isAuthenticated()) 
+        return res.redirect("/login")
+    const childId = req.params.id
+    try {
+        const result = await db.query("SELECT * FROM CHILDREN WHERE ID=$1 AND ORPHANAGE_ID=$2", [childId, req.user.orphanage_id])
+        const child = result.rows[0]
+        console.log(child)
+        res.render("editChildInfo.ejs", {id: child.id, name: child.name, gender: child.gender, dob: child.date_of_birth, doa: child.date_of_admission, status: child.status})
+    } catch (error) {
+        console.log(error)
+    }
+})
+
+app.post("/editChild/:id", async (req, res) => {
+    try {
+        const result = await db.query("UPDATE CHILDREN SET NAME=$1, GENDER=$2, DATE_OF_BIRTH=$3, DATE_OF_ADMISSION=$4, STATUS=$5 WHERE ID=$6", [req.body.name, req.body.gender.toUpperCase(), req.body.dob, req.body.doa, req.body.status.toUpperCase(), req.params.id])
+        res.redirect("/")
+    } catch (error) {
+        console.log(error)
+    }
+})
+
+app.post("/deleteVolunteer/:id", async (req, res) => {
+    if(!req.isAuthenticated())
+        return res.redirect("login.ejs")
+    const id = req.params.id
+    try {
+        await db.query("DELETE FROM VOLUNTEERS WHERE VOLUNTEER_ID=$1 AND ORPHANAGE_ID=$2", [id, req.user.orphanage_id])
+        res.redirect("/")
+    } catch (error) {
+        console.log(error);
     }
 })
 
@@ -75,7 +115,7 @@ app.post("/update", async (req, res) => {
 
 app.post("/addVolunteer", async (req, res) => {
     if(!req.isAuthenticated())
-        return res.render("/login")
+        return res.redirect("/login")
     try {
         const name = req.body.name
         const mobile = req.body.mobile
@@ -84,6 +124,22 @@ app.post("/addVolunteer", async (req, res) => {
         res.redirect("/")
     } catch (error) {
         console.log(error.message)
+    }
+})
+
+app.post("/addChild" , async (req, res) => {
+    if(!req.isAuthenticated())
+        return res.redirect("/login")
+    try {
+        const name = req.body.name
+        const gender = req.body.gender
+        const dob = req.body.dob
+        const doa = req.body.doa
+        const status = req.body.status
+        await db.query("INSERT INTO CHILDREN (NAME, GENDER, DATE_OF_BIRTH, DATE_OF_ADMISSION, STATUS, ORPHANAGE_ID) VALUES ($1, $2, $3, $4, $5, $6)", [name, gender.toUpperCase(), dob, doa, status.toUpperCase(), req.user.orphanage_id])
+        res.redirect("/")
+    } catch (error) {
+        console.log(error);
     }
 })
 

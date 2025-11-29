@@ -335,7 +335,7 @@
         <div class="card">
           <h3>Volunteers</h3>
           <p>
-            <%= volunteers %>
+            <%= volunteersCount %>
           </p>
         </div>
       </div>
@@ -369,18 +369,72 @@
     </section>
 
     <!-- Children -->
-    <!-- <section id="children">
+    <section id="children">
       <div class="form-container">
         <h2>Add Child</h2>
-        <label>Name:</label>
-        <input type="text" placeholder="Child's name" />
-        <label>Age:</label>
-        <input type="number" placeholder="Age" />
-        <label>Notes:</label>
-        <textarea placeholder="Health, education, etc."></textarea>
-        <button>Add Child</button>
+        <form action="/addChild" method="post">
+          <label>Name:</label>
+          <input type="text" name="name" placeholder="Child's name" />
+          <div style="display: flex; gap: 10px;">
+            <label for="gender">Gender:</label>
+            <input type="radio" name="gender" value="male"> Male
+            <input type="radio" name="gender" value="female"> Female
+            <input type="radio" name="gender" value="other"> other
+          </div>
+          <label for="dob">Date of Birth: </label>
+          <input type="date" name="dob">
+          <label for="doa">Date of Admission: </label>
+          <input type="date" name="doa">
+          <div style="display: flex; gap: 10px;">
+            <label for="status">Status:</label>
+            <input type="radio" name="status" value="active"> Active
+            <input type="radio" name="status" value="transferred"> Transferred
+            <input type="radio" name="status" value="adopted"> Adopted
+            <input type="radio" name="status" value="deceased"> Deceased
+          </div>
+          <button type="submit">Add Child</button>
+        </form>
       </div>
-    </section> -->
+      <div class="table-section">
+        <h2>Children</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Gender</th>
+              <th>Birth Date</th>
+              <th>Admission Date</th>
+              <th>Status</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <% children.forEach((child)=> { %>
+              <tr>
+                <td>
+                  <%= child.name %>
+                </td>
+                <td>
+                  <%= child.gender %>
+                </td>
+                <td>
+                  <%= child.date_of_birth %>
+                </td>
+                <td>
+                  <%= child.date_of_admission %>
+                </td>
+                <td>
+                  <%= child.status %>
+                </td>
+                <td>
+                  <a href="/editchildinfo/<%= child.id %>"><img style="height: 30px;" src="https://img.icons8.com/?size=100&id=UZ8pk9DLFPPG&format=png&color=000000" alt="edit"></a>
+                </td>
+              </tr>
+              <% }) %>
+          </tbody>
+        </table>
+      </div>
+    </section>
 
     <!-- Donations -->
     <section id="donations">
@@ -414,22 +468,62 @@
             type="submit" value="Register"">
         </form>
       </div>
+      <div class=" table-section">
+          <h2>Volunteers</h2>
+          <table>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Mobile No.</th>
+                <th>Available on</th>
+                <th>Joining Date</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <% volunteers.forEach((volunteer)=> { %>
+                <tr>
+                  <td>
+                    <%= volunteer.name %>
+                  </td>
+                  <td>
+                    <%= volunteer.mobile_number %>
+                  </td>
+                  <td>
+                    <%= volunteer.available_on.charAt(0).toUpperCase() + volunteer.available_on.slice(1).toLowerCase()
+                      %>
+                  </td>
+                  <td>
+                    <%= volunteer.joined_at %>
+                  </td>
+                  <td>
+                    <form action="/deleteVolunteer/<%= volunteer.volunteer_id %>" method="post">
+                      <button type="submit" style="background: none;"><img style="height: 30px;"
+                          src="https://img.icons8.com/?size=100&id=67884&format=png&color=FA5252"
+                          alt="delete button"></button>
+                    </form>
+                  </td>
+                </tr>
+                <% }) %>
+            </tbody>
+          </table>
+      </div>
     </section>
 
     <!-- Settings -->
-    <section id=" settings">
-          <div class="form-container">
-            <h2>Settings</h2>
-            <form action="/update" method="post">
-              <label>Orphanage Name:</label>
-              <input type="text" name="name" placeholder="Orphanage name" />
-              <label>Admin Email:</label>
-              <input type="email" name="email" placeholder="Admin email" />
-              <input
-                style="margin-top: 20px; padding: 12px 20px; background: linear-gradient(90deg, #4facfe, #00f2fe); color: white; border: none; border-radius: 8px; font-size: 15px; font-weight: 600; cursor: pointer; transition: all 0.3s ease;"
-                type="submit" value="Save Settings">
-            </form>
-          </div>
+    <section id="settings">
+      <div class="form-container">
+        <h2>Settings</h2>
+        <form action="/update" method="post">
+          <label>Orphanage Name:</label>
+          <input type="text" name="name" placeholder="Orphanage name" />
+          <label>Admin Email:</label>
+          <input type="email" name="email" placeholder="Admin email" />
+          <input
+            style="margin-top: 20px; padding: 12px 20px; background: linear-gradient(90deg, #4facfe, #00f2fe); color: white; border: none; border-radius: 8px; font-size: 15px; font-weight: 600; cursor: pointer; transition: all 0.3s ease;"
+            type="submit" value="Save Settings">
+        </form>
+      </div>
     </section>
   </main>
 
